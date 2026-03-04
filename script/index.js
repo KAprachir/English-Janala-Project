@@ -1,14 +1,16 @@
+// synonyms in modal functon
 const crateElement = (arr) => {
   const htmlElements = arr.map((el) => `<span class="btn">${el}</span>`);
   return htmlElements.join(" ");
 };
-
+// word pronounce function
 function pronounceWord(word) {
   const utterance = new SpeechSynthesisUtterance(word);
   utterance.lang = "en-EN"; // English
   window.speechSynthesis.speak(utterance);
 }
 
+// spinner function
 const manageSpinner = (status) => {
   if (status == true) {
     document.getElementById("spinner").classList.remove("hidden");
@@ -19,6 +21,7 @@ const manageSpinner = (status) => {
   }
 };
 
+// loading lessions from api
 const loadLessons = () => {
   fetch("https://openapi.programming-hero.com/api/levels/all")
     .then((res) => res.json())
@@ -27,11 +30,13 @@ const loadLessons = () => {
     });
 };
 
+// button activation
 const removeActive = () => {
   const lessonBtn = document.querySelectorAll(".lesson-btn");
   lessonBtn.forEach((btn) => btn.classList.remove("active"));
 };
 
+// loading level words from api
 const loadLevelWord = (id) => {
   manageSpinner(true);
   const url = `https://openapi.programming-hero.com/api/level/${id}`;
@@ -44,7 +49,7 @@ const loadLevelWord = (id) => {
       displayLevelWord(data.data);
     });
 };
-
+// loading word details from api
 const loadWordDetail = async (id) => {
   const url = `https://openapi.programming-hero.com/api/word/${id}`;
   const res = await fetch(url);
@@ -52,6 +57,7 @@ const loadWordDetail = async (id) => {
   displayWordDetails(details.data);
 };
 
+// displaying word details in modal
 const displayWordDetails = (word) => {
   console.log(word);
   const detailBox = document.getElementById("details-container");
@@ -81,6 +87,7 @@ const displayWordDetails = (word) => {
   document.getElementById("word_modal").showModal();
 };
 
+// displaying level words
 const displayLevelWord = (words) => {
   const wordContainer = document.getElementById("word-container");
   wordContainer.innerHTML = "";
@@ -113,6 +120,7 @@ const displayLevelWord = (words) => {
   manageSpinner(false);
 };
 
+// displaying leasons on tab
 const displayLeason = (leasons) => {
   //   get the container
   const levelContainer = document.getElementById("level-container");
